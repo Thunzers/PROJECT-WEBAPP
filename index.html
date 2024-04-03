@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover">
+    <title>Food Website</title>
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+    <!-- desktop view -->
+    <div class="container" id="container">
+        <div id="menu">
+            <div class="title">
+                <img src="รูป/Logo.png" alt="">
+            </div>
+        </div>
+
+        <div id="food-container">
+            <div id="header">
+
+            </div>
+            <div id="food-items" class="d-food-items">
+                <div id="รายการเครป" class="d-รายการเครป">
+                    <p id="category-name">รายการเครป</p>    
+                </div>
+
+                <div id="ไส้เครป (คาว)" class="d-ไส้เครป (คาว)">
+                    <p id="category-name">ไส้เครป (คาว)</p>    
+                </div>
+
+                <div id="ไส้เครป (หวาน)" class="d-ไส้เครป (หวาน)">
+                    <p id="category-name">ไส้เครป (หวาน)</p>
+                </div>
+
+                <div id="ท็อปปิ้ง" class="d-ท็อปปิ้ง">
+                    <p id="category-name">ท็อปปิ้ง</p> 
+                </div>
+
+                <div id="ซอส" class="d-ซอส">
+                    <p id="category-name">ซอส</p> 
+                </div>
+
+            </div>
+
+            <div id="cart-page" class="cart-toggle">
+                <p id="cart-title">ตะกร้า</p>
+                <p id="m-total-amount">รายการทั้งหมด : 100</p>
+                <table>
+                    <thead>
+                        <td>รายการ</td>
+                        <td>ชื่อรายการ</td>
+                        <td>จำนวน</td>
+                        <td>ราคา</td>
+                    </thead>
+                    <tbody id="table-body">
+                        
+                    </tbody>
+                </table>
+                <div class="btn-box">
+                    <button class="cart-btn">ยืนยันคำสั่งซื้อ</button>
+                </div>
+            </div>
+        </div>
+        <div id="cart">
+            <div class="taste-header">
+                <div class="util">
+                    <i class="fa fa-cart-plus" id="cart-plus"> 0 Items</i>
+                </div>
+            </div>
+            <div id="category-list">
+                <p class="item-menu">หมวดหมู่</p>
+                <div class="border"></div>
+            </div>
+            <div id="checkout" class="cart-toggle">
+                <p id="total-item">รายการทั้งหมด : 5</p>
+                <p id="total-price"></p>
+                <button class="cart-btn">ยืนยันคำสั่งซื้อ</button>
+            </div>
+        </div>
+    </div>
+    <!-- mobile view -->
+    <div id="mobile-view" class="mobile-view">
+        <div class="mobile-top">
+            <div class="logo-box">
+                <img src="/images/foodielogo.png" alt="" id="logo">
+            </div>
+            <div class="top-menu">
+                <i class="fa fa-search"></i>
+                <i class="fa fa-tag"></i>
+                <i class="fa fa-heart-o"></i>
+                <i class="fa fa-cart-plus" id="m-cart-plus"> 0</i>
+            </div>
+        </div>
+        
+        <div class="item-container">
+            <div class="category-header" id="category-header">  
+            </div>
+            <div id="food-items" class="food-items">
+                <div id="biryani" class="m-biryani">
+                    <p id="category-name">Biryani</p>    
+                </div>
+                <div id="chicken" class="m-chicken">
+                    <p id="category-name">Chicken Delicious</p>    
+                </div>
+                <div id="paneer" class="m-paneer">
+                    <p id="category-name">Paneer Mania</p>
+                </div>
+                <div id="vegetable" class="m-vegetable">
+                    <p id="category-name">Pure Veg Dishes</p> 
+                </div>
+                <div id="chinese" class="m-chinese">
+                    <p id="category-name">Chinese Corner</p> 
+                </div>
+                <div id="south-indian" class="m-south-indian">
+                    <p id="category-name">South Indian</p>
+                </div>
+            </div>            
+        </div>
+        <div class="mobile-footer">
+            <p>Home</p>
+            <p>Cart</p>
+            <p>offers</p>
+            <p>orders</p>
+        </div>
+    </div>
+    <script src="/index.js" type="module"></script>
+</body>
+</html>
