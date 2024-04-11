@@ -7,7 +7,7 @@ $(document).ready(() => {
 
     $.ajax({
         method: 'get',
-        url: 'getallproduct.php',
+        url: 'getallproduct2.php',
         success: function (response) {
             console.log(response)
             if (response.RespCode == 200) {
@@ -15,16 +15,12 @@ $(document).ready(() => {
                 product = response.Result
 
                 var html = ''
-                for (let i = 0; i < product.length; i++) {
-                    if(product[i].stock === 'IN STOCK'){
+                for (let i = 0; i < product.length; i++) {                   
                         html += `<div onclick="openProductDetail(${i})" class="product-items ${product[i].category}">
                             <img class="product-img" src="./img/${product[i].img}" alt="">
                             <p style="font-size: 1.2vw;">${product[i].name}</p>
                             <p style="font-size: 1vw;">${numberWithCommas(product[i].price)} THB</p>
                         </div>`;
-                    }else{
-                        html += '';
-                    }
                 }
                 $("#productlist").html(html);
 
@@ -88,52 +84,31 @@ function searchsomething(elem) {
     }
 
 }
-// function searchsomething(elem) {
-//     var value = $('#'+elem.id).val().toLowerCase();
-//     console.log(value)
-
-//     var html = '';
-//     for (let i = 0; i < product.length; i++) {
-//         if( product[i].name.toLowerCase().includes(value) ) {
-//             html += `<div onclick="openProductDetail(${i})" class="product-items ${product[i].type}">
-//                     <img class="product-img" src="${product[i].img}" alt="">
-//                     <p style="font-size: 1.2vw;">${product[i].name}</p>
-//                     <p stlye="font-size: 1vw;">${ numberWithCommas(product[i].price) } THB</p>
-//                 </div>`;
-//         }
-//     }
-//     if(html == '') {
-//         $("#productlist").html(<p>Not found product</p>);
-//     } else {
-//         $("#productlist").html(html);
-//     }
-
-// }
 
 
 function searchproduct(param) {
     $(".product-items").hide();
     if (param == 'all') {
-        $(".Flour").show();
-        $(".Savory").show();
-        $(".Sweet").show();
-        $(".Topping").show();
-        $(".Sauce").show();
+        $(".รายการเครป").show();
+        $(".คาว").show();
+        $(".หวาน").show();
+        $(".ท็อปปิ้ง").show();
+        $(".ซอส").show();
     }
     else if (param == 'Flour') {
-        $(".Flour").show();
+        $(".รายการเครป").show();
     }
     else if (param == 'Savory_filling') {
-        $(".Savory").show();
+        $(".คาว").show();
     }
     else if (param == 'Sweet_filling') {
-        $(".Sweet").show();
+        $(".หวาน").show();
     }
     else if (param == 'Topping') {
-        $(".Topping").show();
+        $(".ท็อปปิ้ง").show();
     }
     else if (param == 'Sauce') {
-        $(".Sauce").show();
+        $(".ซอส").show();
     }
     
     // เพิ่มเงื่อนไขสำหรับเมนูอื่น ๆ ตามต้องการ
@@ -317,7 +292,7 @@ function buynow() {
                 Swal.fire({
                     icon: 'success',
                     title: 'Thank you',
-                    html: ` <p> Amount : ${response.Amount.Amount} THB</p>`
+                    html: `<p> Amount : ${response.Amount.Amount} THB</p>`
                            
                 }).then((res) => {
                     if(res.isConfirmed) {

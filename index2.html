@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 
 <head>
-<link rel="stylesheet" href="index.css">
+<link rel="stylesheet" href="./index.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<script src="./index.js"></script>
+<script src="./index2.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <meta charset="UTF-8">
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -39,22 +39,36 @@
     <div class="sidebar">
       <input onkeyup="searchsomething(this)" id="txt_search" type="text" class="sidebar-search" placeholder="Search something...">
       <a onclick="searchproduct('all')" class="sidebar-items" >
-         All
+        รายการทั้งหมด
       </a>
       <a onclick="searchproduct('Flour')" class="sidebar-items">
-        Flour
+        แป้ง
       </a>
       <a onclick="searchproduct('Savory_filling')" class="sidebar-items">
-        Savory filling
+        ไส้คาว
       </a>
       <a onclick="searchproduct('Sweet_filling')" class="sidebar-items">
-        Sweet filling
+        ไส้หวาน
       </a>
       <a onclick="searchproduct('Topping')" class="sidebar-items">
-        Topping
+        ท็อปปิ้ง
       </a>
       <a onclick="searchproduct('Sauce')" class="sidebar-items">
-        Sauce
+        ซอส
+      <!-- </a>
+        <a onclick="searchproduct('Bread')" class="sidebar-items">
+          ขนมปัง
+        </a>
+          <a onclick="searchproduct('Vegetable')" class="sidebar-items">
+            ผัก
+          </a>
+            <a onclick="searchproduct('Sauce')" class="sidebar-items">
+              ซอส
+            </a>
+            <a onclick="searchproduct('Topping')" class="sidebar-items">
+              ท็อปปิ้ง
+            </a> -->
+              
       </a>
       
       </div>
@@ -80,10 +94,10 @@
           <br>
           <div class="btn-control">
             <button onclick="closeModal()" class="btn">
-              Close
+              ยกเลิก
             </button>
             <button onclick="addtocart()" class="btn btn-buy">
-              Add to cart
+              เพิ่มใส่ตะกร้า
             </button>
           </div>
         </div>
@@ -94,17 +108,17 @@
   <div id="modalCart" class="modal" style="display: none;">
     <div onclick="closeModal()" class="modal-bg"></div>
     <div class="modal-page">
-      <h2>My cart</h2>
+      <h2>ตะกร้าสินค้า</h2>
       <br>
       <div id="mycart" class="cartlist">
       
       </div>
       <div class="btn-control">
         <button onclick="closeModal()" class="btn">
-          Cancel
+          ยกเลิก
         </button>
         <button onclick="buynow()" class="btn btn-buy">
-          Buy
+          สั่งซื้อ
         </button>
       </div>
     </div>

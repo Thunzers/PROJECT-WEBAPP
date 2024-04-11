@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Management</title>
+    <style>
+        /* Your CSS styles here */
+        .product-image {
+            width: 50px;
+            height: 50px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        body{
+            background-color: #fcee99;
+        }
+    </style>    
+</head>
+
+<body>
+    <h2>Stock Management</h2>
+    <table id="stock-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Stock</th>
+                <th>Status</th> <!-- New column for product status -->
+            </tr>
+        </thead>
+        <tbody id="stock-table-body">
+            <!-- Product data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to fetch stock data from the database
+        function fetchStock() {
+            fetch('fetch_stock.php')
+                .then(response => response.json())
+                .then(data => {
+                    const stockTableBody = document.getElementById('stock-table-body');
+                    stockTableBody.innerHTML = ''; // Clear existing data
+
+                    data.forEach(product => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <td>${product.id}</td>
+                        <td><img src="./img/${product.img}" alt="${product.name}" class="product-image"></td>
+                        <td>${product.name}</td>
+                        <td>${product.price}</td>
+                        <td>${product.category}</td>
+                        <td>${product.stock}</td>
+                        <td>
+                            <select class="status-select" onchange="changeStatus(${product.id}, this.value)">
+                                <option value="IN STOCK" ${product.stock === 'IN STOCK' ? 'selected' : ''}>IN STOCK</option>
+                                <option value="OUT OF STOCK" ${product.stock === 'OUT OF STOCK' ? 'selected' : ''}>OUT OF STOCK</option>
+                            </select>
+                        </td>
+                    `;
+                        stockTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching stock:', error);
+                });
+        }
+
+        // Function to handle product status update
+        function changeStatus(productId, newStatus) {
+            fetch('update_stock.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: productId,
+                    stock: newStatus
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Status updated successfully:', data);
+                fetchStock(); // Refresh stock table
+            })
+            .catch(error => {
+                console.error('Error updating status:', error);
+            });
+        }
+
+        // Fetch stock data when the page loads
+        window.onload = fetchStock;
+    </script>
+</body>
+
+</html>

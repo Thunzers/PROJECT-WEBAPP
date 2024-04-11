@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kitchen Management</title>
+    <style>
+        body{
+            background-color: #fcee99;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f7a521;
+        }
+
+        .status-select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .status-select {
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .product-image {
+            width: 50px;
+            height: 50px;
+        }
+
+        .button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            border: none;
+            color: rgb(255, 255, 255);
+            padding: 15px 32px;
+            text-align: left;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button2 {
+            background-color: #f3662ede;
+        }
+
+        body {
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+        .stock-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+}
+    </style>
+</head>
+<body>
+    <h2>Kitchen Management</h2>
+    <a href="Stock.html"><button class="button button2">Stock</button></a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order List</th>
+                <th>Amount</th>
+                <th>Operation</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="transaction-table-body">
+            <!-- Transaction data will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fetch transaction data from the database
+        function fetchTransactions() {
+            fetch('fetch_transactions.php')
+                .then(response => response.json())
+                .then(data => {
+                    const transactionTableBody = document.getElementById('transaction-table-body');
+                    transactionTableBody.innerHTML = ''; // Clear existing data
+
+                    data.forEach(transaction => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                   
+                        <td>${transaction.ID}</td>
+                        <td>${getOrderListNames(transaction.orderlist)}</td>
+                        <td>${transaction.amount}</td>
+                        <td>${transaction.operation}</td>
+                        <td>
+                            <select class="status-select" onchange="changeStatus(${transaction.ID}, this.value)">
+                                <option value="PENDING" ${transaction.operation === 'PENDING' ? 'selected' : ''}>Pending</option>
+                                <option value="COMPLETED" ${transaction.operation === 'COMPLETED' ? 'selected' : ''}>Completed</option>
+                                <option value="CANCELLED" ${transaction.operation === 'CANCELLED' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </td>
+                    `;
+                        transactionTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching transactions:', error);
+                });
+        }
+
+        // Extract food names from orderlist JSON
+        function getOrderListNames(orderlistJson) {
+            const orderlist = JSON.parse(orderlistJson);
+            const foodNames = orderlist.map(item => `<img src="./img/${item.img}" alt=""style="width: 30px; height: 30px; ">${item.name} (${item.count} ชิ้น)`);
+            return foodNames.join(', ');
+        }
+
+        // Change status of a transaction
+        function changeStatus(id, newStatus) {
+            fetch('update_action.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ID: id,
+                    operation: newStatus
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Status updated successfully:', data);
+                    fetchTransactions(); // Refresh transaction table
+                })
+                .catch(error => {
+                    console.error('Error updating status:', error);
+                });
+        }
+
+        // Fetch transactions when the page loads
+        window.onload = fetchTransactions;
+    </script>
+</body>
+
+</html>
